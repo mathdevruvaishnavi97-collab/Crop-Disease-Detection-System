@@ -19,17 +19,20 @@ IMG_SIZE = (128, 128)
 
 import os
 import requests
+import streamlit as st
 
 MODEL_PATH = "model/best_model.h5"
 
 def download_model():
 
+    # create model folder
     os.makedirs("model", exist_ok=True)
 
-    # download only if file does not exist
-    if not os.path.exists(MODEL_PATH):
+    # download only if model not exists
+    if not os.path.isfile(MODEL_PATH):
 
-        url = "https://github.com/mathdevruvaishnavi97-collab/Crop-Disease-Detection-System/releases/download/v1.0/best_model.h5"
+        url = "https://github.com/mathdevruvaishnavi97-collab/Crop-Disease-Detection-System/releases/tag/model"
+
         st.write("Downloading model... Please wait.")
 
         response = requests.get(url, stream=True)
@@ -46,8 +49,10 @@ def download_model():
             st.success("Model downloaded successfully")
 
         else:
-            st.error(f"Failed to download model. Status code: {response.status_code}")
+            st.error(f"Model download failed: {response.status_code}")
+            st.stop()
 
+# download first
 download_model()
 # =========================
 # LOAD MODEL
