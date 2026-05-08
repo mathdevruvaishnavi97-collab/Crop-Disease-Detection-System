@@ -29,8 +29,7 @@ def download_model():
     # download only if file does not exist
     if not os.path.exists(MODEL_PATH):
 
-        url = "https://github.com/mathdevruvaishnavi97-collab/Crop-Disease-Detection-System/releases/download/Model/best_model.h5"
-
+        url = "https://github.com/mathdevruvaishnavi97-collab/Crop-Disease-Detection-System/releases/download/v1.0/best_model.h5"
         st.write("Downloading model... Please wait.")
 
         response = requests.get(url, stream=True)
