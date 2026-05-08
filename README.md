@@ -134,6 +134,4 @@ The system provides:
 
 ---
 
-## Author
 
-Gayatri Shirsath
