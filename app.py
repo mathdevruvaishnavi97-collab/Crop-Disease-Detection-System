@@ -20,31 +20,35 @@ IMG_SIZE = (128, 128)
 import os
 import requests
 
-def download_model():
-    model_path = "model/best_model.h5"
+MODEL_PATH = "model/best_model.h5"
 
-    # create folder if not exists
+def download_model():
+
     os.makedirs("model", exist_ok=True)
 
-    # if model not already downloaded
-    if not os.path.exists(model_path):
-        url = "https://github.com/gayatrishirsath73-cyber/Crop-Disease-Detection-System/releases/download/Model/best_model.h5"
+    # download only if file does not exist
+    if not os.path.exists(MODEL_PATH):
 
-        print("Downloading model...")
+        url = "https://github.com/mathdevruvaishnavi97-collab/Crop-Disease-Detection-System/releases/download/Model/best_model.h5"
+
+        st.write("Downloading model... Please wait.")
 
         response = requests.get(url, stream=True)
 
-        # check if request successful
         if response.status_code == 200:
-            with open(model_path, "wb") as f:
-                for chunk in response.iter_content(chunk_size=8192):
-                    if chunk:   # avoid empty chunks
-                        f.write(chunk)
-            print("Model downloaded successfully")
-        else:
-            raise Exception(f"Download failed! Status code: {response.status_code}")
 
-# call function before loading model
+            with open(MODEL_PATH, "wb") as file:
+
+                for chunk in response.iter_content(chunk_size=8192):
+
+                    if chunk:
+                        file.write(chunk)
+
+            st.success("Model downloaded successfully")
+
+        else:
+            st.error(f"Failed to download model. Status code: {response.status_code}")
+
 download_model()
 # =========================
 # LOAD MODEL
